@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologías para la Conservación de los Océanos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #90e0ef;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, rgba(3, 4, 94, 0.85), rgba(0, 119, 182, 0.85)), 
+                        url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 25px auto;
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(3, 4, 94, 0.4);
+        }
+        .container {
+            max-width: 1100px;
+            margin: -40px auto 50px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .intro-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro-card h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .tech-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.15);
+        }
+
+        .tech-card-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .tech-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tech-card-content h3 {
+            color: var(--dark);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .tech-card-content p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .card-footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tag {
+            background: #e0fbfc;
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .details-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+
+        .details-btn:hover {
+            color: var(--dark);
+        }
+
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.8rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--dark);
+        }
+
+        .modal-content h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content p {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .modal-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            header { padding: 80px 20px; }
+            .modal-content { padding: 20px; }
+        }
+        .stats-section {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto 70px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .form-section h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        .video-section {
+            max-width: 800px;
+            margin: 0 auto 60px auto; /* Centra la sección y da espacio abajo */
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Mantiene la proporción 16:9 del video */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px; /* Bordes redondeados para que se vea lindo */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tecnologías para la Conservación de los Océanos</h1>
+        <p>Innovación y ciencia al servicio de la vida marina y el futuro de nuestro planeta.</p>
+        <a href="#tecnologias" class="btn">Explorar Tecnologías</a>
+    </header>
+    <div class="container">
+        
+        <div class="intro-card">
+            <h2>¿Por qué la tecnología es clave para los océanos?</h2>
+            <p>Los océanos cubren más del 70% de la Tierra, pero enfrentan amenazas críticas como la sobrepesca, la contaminación por plásticos y el cambio climático. Hoy en día, la tecnología avanzada se ha convertido en la mejor aliada para monitorear, proteger y restaurar los ecosistemas marinos de manera eficiente.</p>
+        </div>
+
+        <h2 id="tecnologias" class="section-title">Innovaciones Tecnológicas Destacadas</h2>
+
+        <div class="tech-grid">
+            
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-satellite"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>Monitoreo Satelital y GPS</h3>
+                        <p>Permite rastrear embarcaciones pesqueras en tiempo real para combatir la pesca ilegal...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Vigilancia</span>
+                        <button class="details-btn" onclick="openModal('modal1')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-robot"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>Drones Submarinos (ROVs)</h3>
+                        <p>Vehículos operados remotamente que exploran arrecifes de coral profundos...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Exploración</span>
+                        <button class="details-btn" onclick="openModal('modal2')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-dna"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>ADN Ambiental (eADN)</h3>
+                        <p>Técnica revolucionaria que analiza muestras de agua para detectar material genético...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Genética</span>
+                        <button class="details-btn" onclick="openModal('modal3')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-water"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>Boyas Inteligentes y Sensores IoT</h3>
+                        <p>Redes de sensores conectados que miden la temperatura, acidez y contaminación...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Clima</span>
+                        <button class="details-btn" onclick="openModal('modal4')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>Inteligencia Artificial contra Plásticos</h3>
+                        <p>Algoritmos aplicados en barcos recolectores autónomos para limpiar residuos...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Limpieza</span>
+                        <button class="details-btn" onclick="openModal('modal5')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                <div class="tech-card-content">
+                    <div>
+                        <h3>Hidrófonos y Acústica Marina</h3>
+                        <p>Micrófonos submarinos que graban los sonidos del océano para estudiar cetáceos...</p>
+                    </div>
+                    <div class="card-footer-flex">
+                        <span class="tag">Bioacústica</span>
+                        <button class="details-btn" onclick="openModal('modal6')">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Sección de Estadísticas (NUEVO) -->
+    <div class="stats-section">
+        <h2 style="margin-bottom: 40px; font-size: 2.2rem;">El Océano en Números</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>70%</h3>
+                <p>Del oxígeno que respiramos lo produce el océano</p>
+            </div>
+            <div class="stat-item">
+                <h3>8M</h3>
+                <p>De toneladas de plástico llegan al mar cada año</p>
+            </div>
+            <div class="stat-item">
+                <h3>5%</h3>
+                <p>Es todo lo que hemos explorado del fondo marino</p>
+            </div>
+        </div>
+    </div>
+
+    
+         
+        </form>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <h2>Monitoreo Satelital y GPS</h2>
+            <img src="https://www.gisandbeers.com/wp-content/uploads/2017/08/Monitoreo-de-oceanos-desde-el-espacio.jpg" alt="Satelite" class="modal-img">
+            <p>El monitoreo satelital utiliza constelaciones de satélites en órbita terrestre baja para rastrear la ubicación y el movimiento de embarcaciones comerciales en tiempo real. Mediante sistemas como el AIS (Sistema de Identificación Automática), las autoridades pueden identificar barcos que apagan sus sistemas de rastreo para pescar ilegalmente en zonas marinas protegidas.</p>
+            <p><strong>Impacto ecológico:</strong> Ha reducido drásticamente la pesca clandestina en santuarios marinos de Galápagos, el Pacífico norte y el Antártico, protegiendo poblaciones enteras de tiburones, atunes y ballenas.</p>
+        </div>
+    </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <h2>Drones Submarinos (ROVs)</h2>
+            <img src="https://s3.elespanol.com/2025/06/10/omicrono/defensa-y-espacio/1003743797520_256331657_1024x576.jpg" alt="Drone Submarino" class="modal-img">
+            <p>Los Vehículos Operados Remotamente (ROVs) son pequeños submarinos guiados por científicos desde la superficie mediante cables de fibra óptica y controles avanzados. Están equipados con cámaras de ultra alta definición, luces especiales y brazos mecánicos articulados.</p>
+            <p><strong>Impacto ecológico:</strong> Permiten documentar el blanqueamiento de los arrecifes de coral a grandes profundidades y descubrir nuevas especies sin alterar el frágil equilibrio de los abismos marinos.</p>
+        </div>
+    </div>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <h2>ADN Ambiental (eADN)</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-4Y3RbZezTVosZgJ3R2nXrlqP-z4edOe0GD0QdCR5XjO2hvkq-6kZIehx&s=10" alt="ADN Marino" class="modal-img">
+            <p>Todos los animales marinos liberan constantemente células de su piel, escamas o desechos al agua. La técnica del ADN Ambiental consiste en tomar una simple muestra de agua de mar, extraer todo el material genético presente en ella y secuenciarlo en laboratorios.</p>
+            <p><strong>Impacto ecológico:</strong> Sin necesidad de capturar ni estresar a ningún animal, los biólogos pueden saber con exactitud qué especies de peces, mamíferos o tortugas habitan en una zona específica con solo un par de litros de agua.</p>
+        </div>
+    </div>
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
+            <h2>Boyas Inteligentes y Sensores IoT</h2>
+            <img src="https://acuarea.com/wp-content/uploads/2025/02/Captura-de-pantalla-2022-11-24-093405.jpg" alt="Boyas Oceánicas" class="modal-img">
+            <p>Estas boyas flotantes están repletas de sensores alimentados por energía solar. Miden constantemente parámetros críticos del océano como la temperatura superficial y profunda, el nivel de acidez (pH), la salinidad y los niveles de oxígeno disuelto.</p>
+            <p><strong>Impacto ecológico:</strong> Al enviar estos datos vía satélite en tiempo real, alertan a los centros de investigación sobre olas de calor marinas o niveles peligrosos de acidificación que amenazan la vida marina.</p>
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
+            <h2>Inteligencia Artificial contra Plásticos</h2>
+            <img src="https://content.nationalgeographic.com.es/medio/2023/07/27/un-barco-de-pesca-recoge-sus-redes-en-el-mar_bf8faad0_230727115002_1280x957.jpg" alt="Plastico Océano" class="modal-img">
+            <p>Los barcos recolectores autónomos emplean cámaras con visión por computadora e inteligencia artificial para escanear la superficie del agua. Los algoritmos diferencian al instante entre basura plástica flotante y fauna marina.</p>
+            <p><strong>Impacto ecológico:</strong> Permiten limpiar toneladas de microplásticos y residuos sólidos en desembocaduras de ríos y estuarios antes de que lleguen a altamar y causen daños fatales a las especies.</p>
+        </div>
+    </div>
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal6')">&times;</span>
+            <h2>Hidrófonos y Acústica Marina</h2>
+            <img src="https://www.cope.es/files/og_thumbnail/uploads/2024/07/09/668d2c97d6f84.jpeg" alt="Ballena" class="modal-img">
+            <p>Los hidrófonos son micrófonos ultrasensibles diseñados para soportar las inmensas presiones del fondo marino. Registran de manera continua los cantos de las ballenas, los chasquidos de los delfines y también el molesto ruido de motores de barcos comerciales.</p>
+            <p><strong>Impacto ecológico:</strong> Ayudan a establecer rutas de navegación seguras para evitar colisiones entre barcos y cetáceos, y miden cómo el ruido humano interfiere con la comunicación animal.</p>
+        </div>
+    </div>
+
+    </div>
+    <div class="video-section">
+        <h2 class="section-title">Aprende más sobre el tema</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/1E0t80g289E?si=f2hOylw8tEtnjUw-"  allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <p>Joel Simisterra 3ro Desarrollo De Software - Aplicaciones Web y Móviles</p>
+    </footer>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
